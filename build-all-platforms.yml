@@ -1,0 +1,64 @@
+# GitHub Actions workflow template for building native MDF2Excel binaries
+# (Windows, macOS, Linux).
+#
+# To enable it:
+#   1. Copy this file to: .github/workflows/build.yml
+#   2. Go to the repository's "Actions" tab -> "build-all-platforms" ->
+#      "Run workflow".
+#
+# The resulting downloadable artifacts contain the native executable
+# for each operating system.
+
+name: build-all-platforms
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            pyinstaller_args: "--onefile --windowed"
+            artifact: mdf2excel-windows
+          - os: macos-latest
+            pyinstaller_args: "--onefile --windowed"
+            artifact: mdf2excel-macos
+          - os: ubuntu-latest
+            pyinstaller_args: "--onefile"
+            artifact: mdf2excel-linux
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Linux Tk dependency
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y python3-tk
+
+      - name: Install Python dependencies
+        run: pip install openpyxl pyinstaller
+
+      - name: Build executable
+        run: >
+          pyinstaller ${{ matrix.pyinstaller_args }}
+          --name mdf2excel
+          --distpath dist
+          --workpath build
+          mdf2excel.py
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: dist/*
