@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mdf2excel"
+version = "1.0.0"
+description = "Convert SQL Server .mdf database files to Excel (.xlsx) without SQL Server"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+    { name = "Muhammad Ovais Jahanzaib" },
+]
+keywords = [
+    "mdf", "sql-server", "excel", "xlsx", "data-recovery", "converter",
+    "database", "data-export", "migration", "mdf-to-excel",
+]
+dependencies = [
+    "openpyxl>=3.0",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Database",
+    "Topic :: Office/Business",
+]
+
+[project.urls]
+Homepage = "https://github.com/ovaisi/mdf2excel"
+Website = "https://datazeb.com"
+"Support" = "https://janzeb.gumroad.com/l/sjkzgm"
+
+[project.scripts]
+mdf2excel = "mdf2excel:main"
+
+[tool.setuptools]
+py-modules = ["mdf2excel", "mdf_parser"]

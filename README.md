@@ -84,6 +84,15 @@ sudo apt install python3-tk    # only needed for the GUI
 
 ### Python (any OS)
 
+Install from PyPI:
+
+```bash
+pip install mdf2excel
+mdf2excel "database.mdf"
+```
+
+Or run straight from source:
+
 ```bash
 pip install openpyxl
 python mdf2excel.py "database.mdf"
@@ -147,6 +156,7 @@ mdf_parser.py           low-level MDF page/record parser
 mdf2excel.sh            macOS / Linux launcher
 mdf2excel.command       macOS double-click launcher
 build-all-platforms.yml  GitHub Actions CI template (native builds)
+pyproject.toml          Python package metadata (PyPI)
 ```
 
 ## Building native binaries
