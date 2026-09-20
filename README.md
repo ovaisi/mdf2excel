@@ -131,6 +131,13 @@ applied; `NULL` cells are left empty.
   reported as a pointer like `<LOB:16bytes>` rather than reassembled.
 - Read-only; it never alters the source `.mdf`.
 
+## Keywords
+
+MDF to Excel · MDF to XLSX · SQL Server MDF converter · MDF file viewer ·
+convert MDF without SQL Server · SQL Server database recovery · export MDF data ·
+open MDF file · SQL Server 2000 to Excel · database migration · data extraction ·
+legacy database · MDF data export · SQL Server data export tool · offline database reader
+
 ## Project structure
 
 ```

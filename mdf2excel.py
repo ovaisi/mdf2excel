@@ -22,6 +22,7 @@ import sys
 import queue
 import threading
 import traceback
+import webbrowser
 from datetime import datetime, date
 
 try:
@@ -32,6 +33,11 @@ except ImportError:  # pragma: no cover
     Font = None
 
 import mdf_parser
+
+
+AUTHOR = 'Muhammad Ovais Jahanzaib'
+WEBSITE = 'https://datazeb.com'
+GITHUB_URL = 'https://github.com/ovaisi/mdf2excel'
 
 
 INVALID_SHEET_CHARS = re.compile(r'[\[\]\*/\\?:]')
@@ -181,6 +187,7 @@ def _show_db_info(mdf_path):
         print(f'Version: {mdf.get_version()}')
         print(f'Size: {mdf.size:,} bytes')
         print(f'Pages: {mdf.page_count:,}')
+        print(f'Author: {AUTHOR} ({WEBSITE})')
 
 
 def _show_tables(mdf_path):
@@ -233,6 +240,8 @@ def run_cli(argv):
     out_path, summary = convert_mdf(mdf_path, out_path, progress)
     print(f'Saved: {out_path}')
     print(f'Tables: {len(summary)}')
+    print()
+    print(f'by {AUTHOR} - {WEBSITE}')
     return 0
 
 
@@ -300,6 +309,21 @@ def run_gui(initial_file=None):
     log_text = scrolledtext.ScrolledText(frame, height=20, state='disabled', wrap='word')
     log_text.grid(row=4, column=0, columnspan=3, sticky='nsew', pady=(10, 0))
     frame.rowconfigure(4, weight=1)
+
+    footer = tk.Frame(root, padx=10, pady=4)
+    footer.pack(side='bottom', fill='x')
+
+    def _open(url):
+        webbrowser.open(url)
+
+    tk.Label(footer, text=f'by {AUTHOR}  |  ').pack(side='left')
+    site = tk.Label(footer, text='datazeb.com', fg='#0366d6', cursor='hand2')
+    site.pack(side='left')
+    site.bind('<Button-1>', lambda e: _open(WEBSITE))
+    tk.Label(footer, text='   |   ').pack(side='left')
+    gh = tk.Label(footer, text='github.com/ovaisi/mdf2excel', fg='#0366d6', cursor='hand2')
+    gh.pack(side='left')
+    gh.bind('<Button-1>', lambda e: _open(GITHUB_URL))
 
     q = queue.Queue()
 
