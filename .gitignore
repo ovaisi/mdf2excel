@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# PyInstaller build artifacts
+build/
+dist/
+*.spec
+
+# Binaries and user data (not part of the source project)
+*.exe
+*.mdf
+*.ldf
+*.xlsx
+
+# OS
+.DS_Store
+Thumbs.db
